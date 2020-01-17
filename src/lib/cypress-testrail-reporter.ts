@@ -13,6 +13,12 @@ export class CypressTestRailReporter extends reporters.Spec {
     super(runner);
 
     let reporterOptions = options.reporterOptions;
+
+    // override with process from password
+    if(process.env.TEST_RAIL_PASSWORD) {
+      reporterOptions.password = process.env.TEST_RAIL_PASSWORD;
+    }
+
     this.testRail = new TestRail(reporterOptions);
     this.validate(reporterOptions, 'domain');
     this.validate(reporterOptions, 'username');
